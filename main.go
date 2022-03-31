@@ -13,6 +13,8 @@ func TxRepoSample(ctx context.Context, repo repository.Repository) {
 	appTxRepo.CreateApplication(ctx, nil)
 	userTxRepo.CreateUser(ctx, nil)
 
+	// Both of appTxRepo and userTxRepo are in the same transaction,
+	// so could be committed or rollbacked together from the same transaction.
 	userTxRepo.Commit() // or appTxRepo.Commit()
 }
 
