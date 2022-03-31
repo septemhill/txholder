@@ -5,6 +5,7 @@ import (
 	"txholder/model"
 )
 
+//go:generate mockery --name=ApplicationRepository --inpackage --case underscore
 type ApplicationRepository interface {
 	CreateApplication(ctx context.Context, application *model.Application) error
 	DeleteApplication(ctx context.Context, appId string) error
@@ -12,6 +13,7 @@ type ApplicationRepository interface {
 	ListApplications(ctx context.Context) ([]*model.Application, error)
 }
 
+//go:generate mockery --name=ApplicationTxHolderRepository --inpackage --case underscore
 type ApplicationTxHolderRepository interface {
 	ApplicationRepository
 	TransactionHolderRepository
