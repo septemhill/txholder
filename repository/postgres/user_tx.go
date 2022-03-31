@@ -45,11 +45,11 @@ func (repo *userTxHolderRepository) ListUsers(ctx context.Context) ([]*model.Use
 // Implementation of repository.TransactionHolderRepository
 
 func (repo *userTxHolderRepository) Commit() error {
-	return repo.config.tx.Commit()
+	return repo.config.tx.Commit().Error
 }
 
 func (repo *userTxHolderRepository) Rollback() error {
-	return repo.config.tx.Rollback()
+	return repo.config.tx.Rollback().Error
 }
 
 // Implementation of repository.TransactionalRepositoryCreator

@@ -3,25 +3,25 @@ package postgres
 import (
 	"txholder/repository"
 
-	"github.com/jmoiron/sqlx"
+	"gorm.io/gorm"
 )
 
-type tx sqlx.Tx
+type tx gorm.DB
 
 func (t tx) Apply(conf repository.Config) {
-	conf.Tx((*sqlx.Tx)(&t))
+	conf.Tx((*gorm.DB)(&t))
 }
 
-func WithTx(t *sqlx.Tx) repository.Option {
+func WithTx(t *gorm.DB) repository.Option {
 	return tx(*t)
 }
 
-type db sqlx.DB
+type db gorm.DB
 
 func (d db) Apply(conf repository.Config) {
-	conf.Db((*sqlx.DB)(&d))
+	conf.Db((*gorm.DB)(&d))
 }
 
-func WithDb(d *sqlx.DB) repository.Option {
+func WithDb(d *gorm.DB) repository.Option {
 	return db(*d)
 }

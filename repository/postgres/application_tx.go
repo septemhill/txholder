@@ -45,11 +45,11 @@ func (repo *applicationTxHolderRepository) ListApplications(ctx context.Context)
 // Implementation of repository.TransactionHolderRepository
 
 func (repo *applicationTxHolderRepository) Commit() error {
-	return repo.config.tx.Commit()
+	return repo.config.tx.Commit().Error
 }
 
 func (repo *applicationTxHolderRepository) Rollback() error {
-	return repo.config.tx.Rollback()
+	return repo.config.tx.Rollback().Error
 }
 
 // Implementation of repository.TransactionalRepositoryCreator

@@ -3,12 +3,11 @@ package postgres
 import (
 	"txholder/repository"
 
-	"github.com/jmoiron/sqlx"
+	"gorm.io/gorm"
 )
 
 type repositoryImpl struct {
-	db *sqlx.DB
-	tx *sqlx.Tx
+	db *gorm.DB
 }
 
 func NewRepository() *repositoryImpl {
@@ -20,15 +19,15 @@ func (repo *repositoryImpl) NewApplicationRepository() repository.ApplicationRep
 }
 
 func (repo *repositoryImpl) NewUserRepository() repository.UserRepository {
-	return nil
+	return newUserRepository(WithDb(repo.db))
 }
 
 func (repo *repositoryImpl) NewApplicationTxHolderRepository() repository.ApplicationTxHolderRepository {
-	return nil
+	return newApplicationTxHolderRepository(WithTx(repo.db.Begin()))
 }
 
 func (repo *repositoryImpl) NewUserTxHolderRepository() repository.UserTxHolderRepository {
-	return nil
+	return newUserTxHolderRepository(WithTx(repo.db.Begin()))
 }
 
 var _ repository.Repository = (*repositoryImpl)(nil)

@@ -1,10 +1,10 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import "gorm.io/gorm"
 
 type Config interface {
-	Db(*sqlx.DB)
-	Tx(*sqlx.Tx)
+	Db(*gorm.DB)
+	Tx(*gorm.DB)
 }
 
 type Option interface {
