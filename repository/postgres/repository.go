@@ -1,9 +1,8 @@
 package postgres
 
 import (
-	"txholder/repository"
-
 	"github.com/jmoiron/sqlx"
+	repository "github.com/septemhill/txholder/repository"
 )
 
 type repositoryImpl struct {

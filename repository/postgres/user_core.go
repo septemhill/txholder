@@ -2,24 +2,29 @@ package postgres
 
 import (
 	"context"
-	"txholder/model"
+
+	storage "github.com/septemhill/txholder/storage/user"
 )
 
 type userCoreRepository struct {
 }
 
-func (repo *userCoreRepository) CreateUser(ctx context.Context, db sqlxDB, application *model.User) error {
+func (repo *userCoreRepository) Create(ctx context.Context, db sqlxDB, application *storage.User) error {
 	return nil
 }
-func (repo *userCoreRepository) DeleteUser(ctx context.Context, db sqlxDB, userId string) error {
+func (repo *userCoreRepository) Delete(ctx context.Context, db sqlxDB, userId string) error {
 	return nil
 }
 
-func (repo *userCoreRepository) GetUser(ctx context.Context, db sqlxDB, userId string) (*model.User, error) {
+func (repo *userCoreRepository) Update(ctx context.Context, db sqlxDB, application *storage.User) error {
+	return nil
+}
+
+func (repo *userCoreRepository) GetUser(ctx context.Context, db sqlxDB, userId string) (*storage.User, error) {
 	return nil, nil
 }
 
-func (repo *userCoreRepository) ListUsers(ctx context.Context, db sqlxDB) ([]*model.User, error) {
+func (repo *userCoreRepository) ListUsers(ctx context.Context, db sqlxDB) ([]*storage.User, error) {
 	return nil, nil
 }
 

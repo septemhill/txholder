@@ -2,8 +2,9 @@ package postgres
 
 import (
 	"context"
-	"txholder/model"
-	"txholder/repository"
+
+	repository "github.com/septemhill/txholder/repository"
+	storage "github.com/septemhill/txholder/storage/application"
 )
 
 type applicationRepository struct {
@@ -24,19 +25,23 @@ func newApplicationRepository(opts ...repository.Option) *applicationRepository 
 	return repo
 }
 
-func (repo *applicationRepository) CreateApplication(ctx context.Context, application *model.Application) error {
-	return repo.base.CreateApplication(ctx, repo.config.db, application)
+func (repo *applicationRepository) Create(ctx context.Context, application *storage.Application) error {
+	return repo.base.Create(ctx, repo.config.db, application)
 }
 
-func (repo *applicationRepository) DeleteApplication(ctx context.Context, appId string) error {
-	return repo.base.DeleteApplication(ctx, repo.config.db, appId)
+func (repo *applicationRepository) Delete(ctx context.Context, appId string) error {
+	return repo.base.Delete(ctx, repo.config.db, appId)
 }
 
-func (repo *applicationRepository) GetApplication(ctx context.Context) (*model.Application, error) {
+func (repo *applicationRepository) Update(ctx context.Context, app *storage.Application) error {
+	return nil
+}
+
+func (repo *applicationRepository) GetApplication(ctx context.Context) (*storage.Application, error) {
 	return repo.base.GetApplication(ctx, repo.config.db)
 }
 
-func (repo *applicationRepository) ListApplications(ctx context.Context) ([]*model.Application, error) {
+func (repo *applicationRepository) ListApplications(ctx context.Context) ([]*storage.Application, error) {
 	return repo.base.ListApplications(ctx, repo.config.db)
 }
 

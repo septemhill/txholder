@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"txholder/repository"
+	repository "github.com/septemhill/txholder/repository"
 
 	"github.com/jmoiron/sqlx"
 )

@@ -2,14 +2,16 @@ package repository
 
 import (
 	"context"
-	"txholder/model"
+
+	storage "github.com/septemhill/txholder/storage/user"
 )
 
 type UserRepository interface {
-	CreateUser(ctx context.Context, user *model.User) error
-	DeleteUser(ctx context.Context, userId string) error
-	GetUser(ctx context.Context, userId string) (*model.User, error)
-	ListUsers(ctx context.Context) ([]*model.User, error)
+	Create(ctx context.Context, user *storage.User) error
+	Delete(ctx context.Context, userId string) error
+	Update(ctx context.Context, user *storage.User) error
+	GetUser(ctx context.Context, userId string) (*storage.User, error)
+	ListUsers(ctx context.Context) ([]*storage.User, error)
 }
 
 type UserTxHolderRepository interface {

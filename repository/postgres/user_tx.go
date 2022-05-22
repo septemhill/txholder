@@ -2,8 +2,9 @@ package postgres
 
 import (
 	"context"
-	"txholder/model"
-	"txholder/repository"
+
+	repository "github.com/septemhill/txholder/repository"
+	storage "github.com/septemhill/txholder/storage/user"
 )
 
 type userTxHolderRepository struct {
@@ -26,19 +27,23 @@ func newUserTxHolderRepository(opts ...repository.Option) *userTxHolderRepositor
 
 // Implemtnation of repository.ApplicationRepository
 
-func (repo *userTxHolderRepository) CreateUser(ctx context.Context, application *model.User) error {
-	return repo.base.CreateUser(ctx, repo.config.tx, application)
+func (repo *userTxHolderRepository) Create(ctx context.Context, user *storage.User) error {
+	return repo.base.Create(ctx, repo.config.tx, user)
 }
 
-func (repo *userTxHolderRepository) DeleteUser(ctx context.Context, userId string) error {
-	return repo.base.DeleteUser(ctx, repo.config.tx, userId)
+func (repo *userTxHolderRepository) Delete(ctx context.Context, userId string) error {
+	return repo.base.Delete(ctx, repo.config.tx, userId)
 }
 
-func (repo *userTxHolderRepository) GetUser(ctx context.Context, userId string) (*model.User, error) {
+func (repo *userTxHolderRepository) Update(ctx context.Context, user *storage.User) error {
+	return repo.base.Update(ctx, repo.config.tx, user)
+}
+
+func (repo *userTxHolderRepository) GetUser(ctx context.Context, userId string) (*storage.User, error) {
 	return repo.base.GetUser(ctx, repo.config.tx, userId)
 }
 
-func (repo *userTxHolderRepository) ListUsers(ctx context.Context) ([]*model.User, error) {
+func (repo *userTxHolderRepository) ListUsers(ctx context.Context) ([]*storage.User, error) {
 	return repo.base.ListUsers(ctx, repo.config.tx)
 }
 
