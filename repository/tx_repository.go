@@ -1,5 +1,6 @@
 package repository
 
-type Repository interface {
+type TxRepository interface {
 	DomainRepositoryFactory
+	Transactional
 }

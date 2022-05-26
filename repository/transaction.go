@@ -1,17 +1,8 @@
 package repository
 
-// TransactionHolderRepository
-type TransactionHolderRepository interface {
-	CommitableRepository
-	RollbackableRepository
-}
+import "context"
 
-// CommitableRepository makes transaction holder repostiory could commit.
-type CommitableRepository interface {
-	Commit() error
-}
-
-// RollbackableRepository makes transaction holder repostiory could rollback.
-type RollbackableRepository interface {
-	Rollback() error
+type Transactional interface {
+	Commit(ctx context.Context) error
+	Rollback(ctx context.Context) error
 }

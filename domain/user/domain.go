@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	repository "github.com/septemhill/txholder/repository"
+	repository "github.com/septemhill/txholder/repository/user"
 )
 
 type Domain interface {

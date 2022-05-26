@@ -3,7 +3,7 @@ package application
 import (
 	"context"
 
-	repository "github.com/septemhill/txholder/repository"
+	repository "github.com/septemhill/txholder/repository/application"
 )
 
 type Domain interface {
@@ -17,7 +17,7 @@ type applicationDomain struct {
 }
 
 func (a *applicationDomain) UpdateApplication(ctx context.Context, name, version string) error {
-	ap, err := a.repo.GetApplication(ctx)
+	ap, err := a.repo.GetApplication(ctx, "")
 	if err != nil {
 		return err
 	}

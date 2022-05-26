@@ -6,6 +6,8 @@ import (
 	"github.com/septemhill/txholder/domain/application"
 	"github.com/septemhill/txholder/domain/user"
 	"github.com/septemhill/txholder/repository"
+	apprepo "github.com/septemhill/txholder/repository/application"
+	userrepo "github.com/septemhill/txholder/repository/user"
 )
 
 type Logic interface {
@@ -14,26 +16,26 @@ type Logic interface {
 
 type logic struct {
 	repo              repository.Repository
-	appDomainFactory  func(repo repository.ApplicationRepository) application.Domain
-	userDoaminFactory func(repo repository.UserRepository) user.Domain
+	repoFactory       repository.RepositoryFactory
+	appDomainFactory  func(repo apprepo.ApplicationRepository) application.Domain
+	userDoaminFactory func(repo userrepo.UserRepository) user.Domain
 }
 
 func (l *logic) UpdateApplicationAndUser(ctx context.Context, req *UpdateApplicationAndUserRequest) (UpdateApplicationAndUserResponse, error) {
-	appRepo := l.repo.NewApplicationTxHolderRepository()
-	userRepo := appRepo.NewUserTxHolderRepository()
+	root := l.repoFactory.NewTxRepository()
 
-	appDomain := l.appDomainFactory(appRepo)
-	userDmain := l.userDoaminFactory(userRepo)
+	appDomain := l.appDomainFactory(root.NewApplicationRepository())
+	userDmain := l.userDoaminFactory(root.NewUserRepository())
 
 	if err := appDomain.UpdateApplication(ctx, "Septem", "1.0.0"); err != nil {
-		appRepo.Rollback()
+		root.Rollback(ctx)
 	}
 
 	if err := userDmain.UpdateUser(ctx, "Septem", "bb@test.com"); err != nil {
-		userRepo.Rollback()
+		root.Rollback(ctx)
 	}
 
-	appRepo.Commit()
+	root.Commit(ctx)
 
 	return UpdateApplicationAndUserResponse{}, nil
 }
